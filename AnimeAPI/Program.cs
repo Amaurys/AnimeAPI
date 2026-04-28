@@ -31,6 +31,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IAnimeService, AnimeService>();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
 
 var app = builder.Build();
 
